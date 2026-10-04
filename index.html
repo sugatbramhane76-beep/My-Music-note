@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09051f">
+
+<title>Music Note 🎵 | Search • Play • Download</title>
+
+<style>
+:root {
+    --bg: #07051c;
+    --panel: #10102d;
+    --panel2: #15143a;
+    --purple: #7b35ff;
+    --pink: #ed35ca;
+    --blue: #199de8;
+    --green: #11b878;
+    --white: #ffffff;
+    --muted: #bcb9db;
+    --border: #3a2867;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--white);
+
+    background:
+        radial-gradient(
+            circle at 10% 25%,
+            rgba(170, 42, 120, .55),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 85% 50%,
+            rgba(104, 29, 145, .45),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #13082d,
+            #07051c 55%,
+            #12051e
+        );
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    min-height: 92px;
+    padding: 14px 4%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: rgba(7, 6, 31, .94);
+    border-bottom: 1px solid #31245b;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logoIcon {
+    font-size: 52px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff43dc,
+            #814cff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.logoText h1 {
+    font-size: 30px;
+    font-style: italic;
+}
+
+.logoText h1 span {
+    color: var(--pink);
+}
+
+.logoText p {
+    color: #aaa6cf;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+/* SEARCH */
+
+.searchBox {
+    width: min(420px, 40vw);
+
+    display: flex;
+    align-items: center;
+
+    padding: 7px 8px 7px 18px;
+
+    border-radius: 35px;
+    border: 1px solid #43356d;
+    background: #151436;
+}
+
+.searchIcon {
+    font-size: 23px;
+    color: #c6baff;
+}
+
+.searchBox input {
+    flex: 1;
+    min-width: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+    color: white;
+
+    padding: 10px;
+}
+
+.searchBox input::placeholder {
+    color: #aaa6ca;
+}
+
+.searchBtn {
+    border: none;
+    color: white;
+
+    padding: 11px 17px;
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            120deg,
+            var(--purple),
+            var(--pink)
+        );
+}
+
+/* PROFILE */
+
+.profileTag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 25px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.profileImage {
+    width: 80px;
+    height: 80px;
+
+    border-radius: 60%;
+    object-fit: cover;
+
+    border: 2px solid #7d4dca;
+    background: #24194b;
+}
+
+.menu {
+    font-size: 26px;
+    color: #cdaaff;
+}
+
+.profileName {
+    font-weight: bold;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    width: min(1400px, 94%);
+    margin: 38px auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(300px, .85fr);
+
+    gap: 35px;
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player {
+    text-align: center;
+}
+
+.coverBox {
+    width: min(540px, 100%);
+    margin: auto;
+
+    position: relative;
+
+    border-radius: 17px;
+    overflow: hidden;
+
+    border: 2px solid #a936e7;
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.55),
+        0 0 30px rgba(164,40,224,.15);
+}
+
+.cover {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    background: #151333;
+}
+
+/* =========================
+   NAME TAG
+========================= */
+
+.nameTag {
+    position: absolute;
+
+    left: 18px;
+    bottom: 18px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 15px 9px 9px;
+
+    border-radius: 30px;
+
+    background: rgba(7, 4, 25, .83);
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 5px 25px #0008;
+}
+
+.tagImage {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 2px solid #e93fd1;
+}
+
+.tagText {
+    text-align: left;
+}
+
+.tagText strong {
+    display: block;
+    font-size: 14px;
+}
+
+.tagText small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #d6cce9;
+}
+
+/* =========================
+   SONG INFO
+========================= */
+
+.songTitle {
+    margin-top: 27px;
+
+    font-size: clamp(
+        24px,
+        4vw,
+        34px
+    );
+
+    overflow-wrap: anywhere;
+}
+
+.artist {
+    margin-top: 8px;
+
+    font-size: 19px;
+
+    color: #c6baf2;
+
+    overflow-wrap: anywhere;
+}
+
+.songMeta {
+    margin-top: 13px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progressArea {
+    margin-top: 28px;
+}
+
+#progress {
+    width: 100%;
+
+    accent-color: var(--pink);
+
+    cursor: pointer;
+}
+
+.timeRow {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #c9c3df;
+
+    font-size: 13px;
+
+    margin-top: 8px;
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 28px;
+
+    margin: 23px 0;
+}
+
+.controlBtn {
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    font-size: 28px;
+
+    transition: .2s;
+}
+
+.controlBtn:hover {
+    color: var(--pink);
+    transform: scale(1.1);
+}
+
+.playBtn {
+    width: 84px;
+    height: 84px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    color: white;
+
+    font-size: 32px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ef39cf,
+            #7139ff
+        );
+
+    box-shadow:
+        0 0 30px rgba(194,49,238,.35);
+}
+
+/* =========================
+   AUTO PLAY BUTTON
+========================= */
+
+.autoPlayBox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.autoPlayBtn {
+    border: 1px solid #57348d;
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 25px;
+
+    background: #171432;
+
+    transition: .2s;
+}
+
+.autoPlayBtn.on {
+    background:
+        linear-gradient(
+            120deg,
+            #11a96f,
+            #138e6a
+        );
+
+    border-color: #20d99b;
+
+    box-shadow:
+        0 0 20px rgba(17,184,120,.25);
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.action {
+    border: none;
+
+    color: white;
+
+    padding: 13px 18px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #6c25df,
+            #a829cb
+        );
+}
+
+.whatsapp {
+    background: #079665;
+}
+
+.download {
+    background:
+        linear-gradient(
+            120deg,
+            #e62fbc,
+            #763cff
+        );
+}
+
+.action:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   NOW PLAYING
+========================= */
+
+.nowPlaying {
+    margin-top: 22px;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    text-align: left;
+
+    border-radius: 14px;
+
+    background: rgba(16,16,47,.9);
+
+    border: 1px solid #332b63;
+}
+
+.nowCover {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 9px;
+
+    object-fit: cover;
+}
+
+.nowPlaying small {
+    color: #9f9bbf;
+}
+
+.nowPlaying p {
+    margin-top: 5px;
+
+    font-size: 14px;
+
+    overflow-wrap: anywhere;
+}
+
+/* =========================
+   RIGHT PANEL
+========================= */
+
+.sidePanel {
+    background: rgba(7,7,31,.88);
+
+    border: 1px solid #4a2b6e;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    min-width: 0;
+}
+
+.panelHeader {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 17px;
+
+    border-bottom: 1px solid #28234c;
+}
+
+.panelHeader h2 {
+    font-size: 23px;
+}
+
+.panelHeader h2 span {
+    color: var(--pink);
+}
+
+#resultCount {
+    color: #aaa4ca;
+
+    font-size: 12px;
+}
+
+.results {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-top: 14px;
+
+    max-height: 610px;
+
+    overflow-y: auto;
+}
+
+.result {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 9px;
+
+    border-radius: 12px;
+
+    background: transparent;
+
+    border: 1px solid transparent;
+
+    color: white;
+
+    text-align: left;
+}
+
+.result:hover,
+.result.active {
+    background:
+        linear-gradient(
+            90deg,
+            #6824a8,
+            #93258a
+        );
+
+    border-color: #a759e7;
+}
+
+.result img {
+    width: 57px;
+    height: 57px;
+
+    border-radius: 8px;
+
+    object-fit: cover;
+
+    flex-shrink: 0;
+}
+
+.resultInfo {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.resultInfo strong,
+.resultInfo small {
+    display: block;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.resultInfo strong {
+    font-size: 14px;
+}
+
+.resultInfo small {
+    margin-top: 6px;
+
+    color: #c1bad9;
+}
+
+.playSmall {
+    color: #e6aaff;
+
+    font-size: 19px;
+}
+
+.loading,
+.empty {
+    text-align: center;
+
+    color: #b9b1d2;
+
+    line-height: 1.8;
+
+    padding: 35px 10px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    margin-top: 50px;
+
+    padding: 25px 5%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    border-top: 1px solid #2c2350;
+
+    color: #bcb6d7;
+
+    font-size: 14px;
+}
+
+footer strong {
+    color: var(--pink);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px) {
+
+    header {
+        height: auto;
+
+        flex-wrap: wrap;
+
+        padding: 13px 4%;
+    }
+
+    .searchBox {
+        width: 100%;
+
+        order: 3;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+
+        margin-top: 25px;
+    }
+
+    .coverBox {
+        max-width: 470px;
+    }
+}
+
+@media(max-width:450px) {
+
+    .logoIcon {
+        font-size: 38px;
+    }
+
+    .logoText h1 {
+        font-size: 22px;
+    }
+
+    .profileName {
+        display: none;
+    }
+
+    .controls {
+        gap: 17px;
+    }
+
+    .playBtn {
+        width: 72px;
+        height: 72px;
+
+        font-size: 27px;
+    }
+
+    .action {
+        padding: 11px 13px;
+
+        font-size: 13px;
+    }
+
+    main {
+        width: 92%;
+    }
+
+    .nameTag {
+        left: 10px;
+        bottom: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+
+        <div class="logoIcon">♫</div>
+
+        <div class="logoText">
+
+            <h1>
+                Music <span>Note</span>
+            </h1>
+
+            <p>
+                Feel ♫ &nbsp; Play ♫ &nbsp; Share
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- SEARCH -->
+
+    <form
+        class="searchBox"
+        id="searchForm"
+    >
+
+        <span class="searchIcon">⌕</span>
+
+        <input
+            id="searchInput"
+            type="search"
+            placeholder="Search a song..."
+            autocomplete="off"
+            required
+        >
+
+        <button
+            class="searchBtn"
+            type="submit"
+        >
+            Search
+        </button>
+
+    </form>
+
+    <!-- PROFILE -->
+
+    <div class="profileTag">
+
+        <img
+            id="profileImage"
+            class="profileImage"
+            src="sugat.jpg.webp"
+            alt="Profile"
+        >
+
+        <span
+            class="profileName"
+            id="profileName"
+        >
+            Sugat
+        </span>
+
+        <span class="menu">☰</span>
+
+    </div>
+
+</header>
+
+
+<main>
+
+<!-- PLAYER -->
+
+<section class="player">
+
+    <div class="coverBox">
+
+        <img
+            id="cover"
+            class="cover"
+            src="https://placehold.co/700x700/171238/f2b5ff?text=Music+Note"
+            alt="Album artwork"
+        >
+
+        <!-- NAME TAG -->
+
+        <div class="nameTag">
+
+            <img
+                id="tagImage"
+                class="tagImage"
+                src="sugat.jpg.webp"
+                alt="Profile"
+            >
+
+            <div class="tagText">
+
+                <strong id="tagName">
+                    Sugat
+                </strong>
+
+                <small>
+                    Music Note 🎵
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SONG INFO -->
+
+    <h2
+        class="songTitle"
+        id="songTitle"
+    >
+        Search a song
+    </h2>
+
+    <p
+        class="artist"
+        id="artist"
+    >
+        Your favourite music starts here
+    </p>
+
+    <p
+        class="songMeta"
+        id="songMeta"
+    >
+        ♫ Search • Play • Share • Download
+    </p>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progressArea">
+
+        <input
+            id="progress"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+        >
+
+        <div class="timeRow">
+
+            <span id="currentTime">
+                0:00
+            </span>
+
+            <span id="duration">
+                0:00
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTROLS -->
+
+    <div class="controls">
+
+        <button
+            class="controlBtn"
+            id="likeBtn"
+            title="Favourite"
+        >
+            ♡
+        </button>
+
+        <button
+            class="controlBtn"
+            id="prevBtn"
+            title="Previous"
+        >
+            |◀
+        </button>
+
+        <button
+            class="playBtn"
+            id="playBtn"
+            title="Play"
+        >
+            ▶
+        </button>
+
+        <button
+            class="controlBtn"
+            id="nextBtn"
+            title="Next"
+        >
+            ▶|
+        </button>
+
+        <button
+            class="controlBtn"
+            id="muteBtn"
+            title="Mute"
+        >
+            🔊
+        </button>
+
+    </div>
+
+
+    <!-- AUTO PLAY -->
+
+    <div class="autoPlayBox">
+
+        <button
+            id="autoPlayBtn"
+            class="autoPlayBtn on"
+        >
+            🔄 Auto Play: ON
+        </button>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <div class="actions">
+
+        <button
+            class="action whatsapp"
+            id="whatsappBtn"
+        >
+            ☎ WhatsApp
+        </button>
+
+        <button
+            class="action"
+            id="shareBtn"
+        >
+            ↗ Share
+        </button>
+
+        <button
+            class="action"
+            id="copyBtn"
+        >
+            🔗 Copy Link
+        </button>
+
+        <button
+            class="action download"
+            id="downloadBtn"
+        >
+            📥 Download Preview
+        </button>
+
+    </div>
+
+
+    <!-- NOW PLAYING -->
+
+    <div class="nowPlaying">
+
+        <img
+            id="nowCover"
+            class="nowCover"
+            src="https://placehold.co/100x100/171238/f2b5ff?text=♫"
+            alt=""
+        >
+
+        <div>
+
+            <small>
+                Now Playing
+            </small>
+
+            <p id="nowTitle">
+                No song selected
+            </p>
+
+            <small id="nowArtist">
+                Search a song below
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SEARCH RESULTS -->
+
+<aside class="sidePanel">
+
+    <div class="panelHeader">
+
+        <h2>
+            <span>♫</span>
+            Search Results
+        </h2>
+
+        <span id="resultCount">
+            0 songs
+        </span>
+
+    </div>
+
+    <div
+        class="results"
+        id="results"
+    >
+
+        <div class="empty">
+
+            🎵
+            <br>
+
+            Search any song to begin.
+
+            <br>
+
+            <small>
+                Try:
+                Arijit Singh,
+                Tum Se,
+                Kesariya,
+                etc.
+            </small>
+
+        </div>
+
+    </div>
+
+</aside>
+
+</main>
+
+
+<footer>
+
+    <div>
+        ♫ <strong>Music Note</strong>
+    </div>
+
+    <div>
+        Good Music ✦ Good Vibes ✦ Always
+    </div>
+
+    <div>
+        Made with ❤️ for Music Lovers
+    </div>
+
+</footer>
+
+
+<!-- AUDIO -->
+
+<audio
+    id="audio"
+    preload="metadata"
+></audio>
+
+
+<script>
+
+/* =====================================================
+   CONFIGURATION
+===================================================== */
+
+const CONFIG = {
+
+    profileName: "Sugat",
+
+    profileImage: "sugat.jpg"
+
+};
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const audio =
+    document.getElementById("audio");
+
+const searchForm =
+    document.getElementById("searchForm");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const results =
+    document.getElementById("results");
+
+const resultCount =
+    document.getElementById("resultCount");
+
+const cover =
+    document.getElementById("cover");
+
+const songTitle =
+    document.getElementById("songTitle");
+
+const artist =
+    document.getElementById("artist");
+
+const songMeta =
+    document.getElementById("songMeta");
+
+const playBtn =
+    document.getElementById("playBtn");
+
+const progress =
+    document.getElementById("progress");
+
+const currentTime =
+    document.getElementById("currentTime");
+
+const duration =
+    document.getElementById("duration");
+
+const nowCover =
+    document.getElementById("nowCover");
+
+const nowTitle =
+    document.getElementById("nowTitle");
+
+const nowArtist =
+    document.getElementById("nowArtist");
+
+const tagImage =
+    document.getElementById("tagImage");
+
+const tagName =
+    document.getElementById("tagName");
+
+const autoPlayBtn =
+    document.getElementById("autoPlayBtn");
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+document.getElementById("profileName").textContent =
+    CONFIG.profileName;
+
+tagName.textContent =
+    CONFIG.profileName;
+
+document.getElementById("profileImage").src =
+    CONFIG.profileImage;
+
+tagImage.src =
+    CONFIG.profileImage;
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let songs = [];
+
+let currentIndex = -1;
+
+let currentSong = null;
+
+/*
+   IMPORTANT:
+   Auto Play is ON by default.
+*/
+let autoPlayEnabled = true;
+
+
+/* =====================================================
+   FORMAT TIME
+===================================================== */
+
+function formatTime(seconds) {
+
+    if (
+        !Number.isFinite(seconds) ||
+        seconds < 0
+    ) {
+        return "0:00";
+    }
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const secondsPart =
+        Math.floor(seconds % 60);
+
+    return (
+        minutes +
+        ":" +
+        String(secondsPart).padStart(2, "0")
+    );
+}
+
+
+/* =====================================================
+   SEARCH SONGS
+===================================================== */
+
+async function searchSongs(query) {
+
+    results.innerHTML = `
+        <div class="loading">
+            🔍 Searching...
+        </div>
+    `;
+
+    resultCount.textContent =
+        "Searching...";
+
+    try {
+
+        const url =
+            new URL(
+                "https://itunes.apple.com/search"
+            );
+
+        url.searchParams.set(
+            "term",
+            query
+        );
+
+        url.searchParams.set(
+            "media",
+            "music"
+        );
+
+        url.searchParams.set(
+            "entity",
+            "song"
+        );
+
+        url.searchParams.set(
+            "limit",
+            "40"
+        );
+
+        const response =
+            await fetch(
+                url.toString()
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Search failed"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        songs =
+            (data.results || [])
+            .map(track => ({
+
+                title:
+                    track.trackName ||
+                    "Unknown Song",
+
+                artist:
+                    track.artistName ||
+                    "Unknown Artist",
+
+                album:
+                    track.collectionName ||
+                    "Music",
+
+                artwork:
+                    track.artworkUrl100
+                    ?
+                    track.artworkUrl100.replace(
+                        "100x100",
+                        "700x700"
+                    )
+                    :
+                    "https://placehold.co/700x700/171238/f2b5ff?text=Music",
+
+                preview:
+                    track.previewUrl ||
+                    "",
+
+                link:
+                    track.trackViewUrl ||
+                    "",
+
+                genre:
+                    track.primaryGenreName ||
+                    "Music",
+
+                duration:
+                    track.trackTimeMillis
+                    ?
+                    track.trackTimeMillis / 1000
+                    :
+                    0
+
+            }));
+
+        /*
+           New search starts from first result.
+        */
+        currentIndex = -1;
+
+        renderResults();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        results.innerHTML = `
+            <div class="empty">
+
+                ❌ Search failed.
+
+                <br>
+
+                Please check your internet connection.
+
+            </div>
+        `;
+
+        resultCount.textContent =
+            "Error";
+    }
+}
+
+
+/* =====================================================
+   RENDER RESULTS
+===================================================== */
+
+function renderResults() {
+
+    resultCount.textContent =
+        songs.length + " songs";
+
+    if (!songs.length) {
+
+        results.innerHTML = `
+            <div class="empty">
+
+                No songs found.
+
+                <br>
+
+                Try another search.
+
+            </div>
+        `;
+
+        return;
+    }
+
+    results.innerHTML =
+        songs.map(
+            (song, index) => `
+
+            <button
+                class="result ${
+                    index === currentIndex
+                    ? "active"
+                    : ""
+                }"
+                data-index="${index}"
+            >
+
+                <img
+                    src="${escapeHTML(song.artwork)}"
+                    alt=""
+                >
+
+                <span class="resultInfo">
+
+                    <strong>
+                        ${escapeHTML(song.title)}
+                    </strong>
+
+                    <small>
+                        ${escapeHTML(song.artist)}
+                    </small>
+
+                </span>
+
+                <span class="playSmall">
+                    ${song.preview ? "▶" : "↗"}
+                </span>
+
+            </button>
+
+        `
+        ).join("");
+
+
+    document
+        .querySelectorAll(".result")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const index =
+                        Number(
+                            button.dataset.index
+                        );
+
+                    /*
+                       THIS IS THE IMPORTANT PART:
+                       Clicking a song immediately selects
+                       AND starts playing it.
+                    */
+
+                    selectSong(
+                        index,
+                        true
+                    );
+
+                }
+            );
+
+        });
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(
+            /[&<>"']/g,
+            character => ({
+
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+
+            })[character]
+        );
+}
+
+
+/* =====================================================
+   SELECT SONG
+===================================================== */
+
+/*
+   autoStart = true
+   means the song will immediately play.
+
+   This is used when the user clicks a search result.
+*/
+
+async function selectSong(
+    index,
+    autoStart = false
+) {
+
+    const song =
+        songs[index];
+
+    if (!song) return;
+
+    currentIndex =
+        index;
+
+    currentSong =
+        song;
+
+    /*
+       Stop previous song.
+    */
+
+    audio.pause();
+
+    audio.currentTime = 0;
+
+
+    /*
+       Artwork
+    */
+
+    cover.src =
+        song.artwork;
+
+    nowCover.src =
+        song.artwork;
+
+
+    /*
+       Song information
+    */
+
+    songTitle.textContent =
+        song.title;
+
+    artist.textContent =
+        song.artist;
+
+    songMeta.textContent =
+        "♫ " +
+        song.album +
+        " • " +
+        song.genre;
+
+
+    /*
+       Now Playing
+    */
+
+    nowTitle.textContent =
+        song.title;
+
+    nowArtist.textContent =
+        song.artist;
+
+
+    /*
+       Progress
+    */
+
+    progress.value = 0;
+
+    currentTime.textContent =
+        "0:00";
+
+    duration.textContent =
+        formatTime(song.duration);
+
+
+    /*
+       Remove old audio.
+    */
+
+    audio.removeAttribute("src");
+
+    audio.load();
+
+
+    /*
+       Preview unavailable
+    */
+
+    if (!song.preview) {
+
+        playBtn.textContent = "↗";
+
+        songMeta.textContent +=
+            " • Preview unavailable";
+
+        renderResults();
+
+        return;
+    }
+
+
+    /*
+       Set new preview.
+    */
+
+    audio.src =
+        song.preview;
+
+    audio.load();
+
+    playBtn.textContent =
+        "▶";
+
+    renderResults();
+
+
+    /*
+       ⭐ IMPORTANT ⭐
+       Automatically play after clicking
+       a search result.
+    */
+
+    if (autoStart) {
+
+        try {
+
+            await audio.play();
+
+        }
+
+        catch(error) {
+
+            console.log(
+                "Autoplay was blocked:",
+                error
+            );
+
+            /*
+               The browser may block playback
+               in some situations. The user can
+               press the main Play button.
+            */
+
+            playBtn.textContent =
+                "▶";
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   PLAY / PAUSE BUTTON
+===================================================== */
+
+playBtn.addEventListener(
+    "click",
+    async () => {
+
+        if (!currentSong) {
+
+            alert(
+                "Search and select a song first."
+            );
+
+            return;
+        }
+
+
+        /*
+           No preview available
+        */
+
+        if (!currentSong.preview) {
+
+            if (currentSong.link) {
+
+                window.open(
+                    currentSong.link,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+
+            }
+
+            return;
+        }
+
+
+        /*
+           PLAY
+        */
+
+        if (audio.paused) {
+
+            try {
+
+                await audio.play();
+
+            }
+
+            catch(error) {
+
+                alert(
+                    "Unable to play this preview."
+                );
+
+            }
+
+        }
+
+        /*
+           PAUSE
+        */
+
+        else {
+
+            audio.pause();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   AUDIO PLAY
+===================================================== */
+
+audio.addEventListener(
+    "play",
+    () => {
+
+        playBtn.textContent =
+            "Ⅱ";
+
+    }
+);
+
+
+/* =====================================================
+   AUDIO PAUSE
+===================================================== */
+
+audio.addEventListener(
+    "pause",
+    () => {
+
+        playBtn.textContent =
+            "▶";
+
+    }
+);
+
+
+/* =====================================================
+   AUDIO LOADED
+===================================================== */
+
+audio.addEventListener(
+    "loadedmetadata",
+    () => {
+
+        duration.textContent =
+            formatTime(
+                audio.duration
+            );
+
+    }
+);
+
+
+/* =====================================================
+   AUDIO TIME UPDATE
+===================================================== */
+
+audio.addEventListener(
+    "timeupdate",
+    () => {
+
+        if (
+            audio.duration &&
+            Number.isFinite(
+                audio.duration
+            )
+        ) {
+
+            progress.value =
+                (
+                    audio.currentTime /
+                    audio.duration
+                ) * 100;
+
+            currentTime.textContent =
+                formatTime(
+                    audio.currentTime
+                );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ⭐ AUTO NEXT SONG
+===================================================== */
+
+audio.addEventListener(
+    "ended",
+    async () => {
+
+        playBtn.textContent =
+            "▶";
+
+
+        /*
+           If Auto Play is OFF,
+           stop here.
+        */
+
+        if (!autoPlayEnabled) {
+            return;
+        }
+
+
+        /*
+           Find next song.
+        */
+
+        const nextIndex =
+            currentIndex + 1;
+
+
+        /*
+           If another song exists,
+           automatically select and play it.
+        */
+
+        if (
+            nextIndex <
+            songs.length
+        ) {
+
+            await selectSong(
+                nextIndex,
+                true
+            );
+
+        }
+
+        else {
+
+            /*
+               Playlist finished.
+            */
+
+            nowTitle.textContent =
+                "Playlist Finished 🎵";
+
+            nowArtist.textContent =
+                "Search for another song";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SEEK
+===================================================== */
+
+progress.addEventListener(
+    "input",
+    () => {
+
+        if (
+            audio.duration &&
+            Number.isFinite(
+                audio.duration
+            )
+        ) {
+
+            audio.currentTime =
+                (
+                    Number(progress.value) /
+                    100
+                ) *
+                audio.duration;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+document
+    .getElementById("prevBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            if (
+                currentIndex > 0
+            ) {
+
+                await selectSong(
+                    currentIndex - 1,
+                    true
+                );
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+document
+    .getElementById("nextBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            if (
+                currentIndex <
+                songs.length - 1
+            ) {
+
+                await selectSong(
+                    currentIndex + 1,
+                    true
+                );
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   AUTO PLAY ON / OFF
+===================================================== */
+
+autoPlayBtn.addEventListener(
+    "click",
+    () => {
+
+        autoPlayEnabled =
+            !autoPlayEnabled;
+
+
+        if (autoPlayEnabled) {
+
+            autoPlayBtn.textContent =
+                "🔄 Auto Play: ON";
+
+            autoPlayBtn.classList.add(
+                "on"
+            );
+
+        }
+
+        else {
+
+            autoPlayBtn.textContent =
+                "⏸ Auto Play: OFF";
+
+            autoPlayBtn.classList.remove(
+                "on"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MUTE
+===================================================== */
+
+document
+    .getElementById("muteBtn")
+    .addEventListener(
+        "click",
+        event => {
+
+            audio.muted =
+                !audio.muted;
+
+            event.target.textContent =
+                audio.muted
+                ? "🔇"
+                : "🔊";
+
+        }
+    );
+
+
+/* =====================================================
+   FAVOURITE
+===================================================== */
+
+document
+    .getElementById("likeBtn")
+    .addEventListener(
+        "click",
+        event => {
+
+            if (!currentSong) return;
+
+            event.target.textContent =
+                event.target.textContent === "♡"
+                ? "♥"
+                : "♡";
+
+        }
+    );
+
+
+/* =====================================================
+   DOWNLOAD PREVIEW
+===================================================== */
+
+document
+    .getElementById("downloadBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            if (!currentSong) {
+
+                alert(
+                    "Search and select a song first."
+                );
+
+                return;
+            }
+
+            if (!currentSong.preview) {
+
+                alert(
+                    "A downloadable preview is not available for this track."
+                );
+
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(
+                        currentSong.preview
+                    );
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Download failed"
+                    );
+                }
+
+                const blob =
+                    await response.blob();
+
+                const url =
+                    URL.createObjectURL(
+                        blob
+                    );
+
+                const link =
+                    document.createElement("a");
+
+                link.href =
+                    url;
+
+                link.download =
+                    cleanFileName(
+                        currentSong.title +
+                        " - " +
+                        currentSong.artist +
+                        " Preview"
+                    ) +
+                    ".m4a";
+
+                document.body.appendChild(
+                    link
+                );
+
+                link.click();
+
+                link.remove();
+
+                URL.revokeObjectURL(
+                    url
+                );
+
+            }
+
+            catch(error) {
+
+                window.open(
+                    currentSong.preview,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   CLEAN FILE NAME
+===================================================== */
+
+function cleanFileName(name) {
+
+    return name
+
+        .replace(
+            /[<>:"/\\|?*]/g,
+            ""
+        )
+
+        .replace(
+            /\s+/g,
+            " "
+        )
+
+        .trim();
+
+}
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+document
+    .getElementById("whatsappBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (!currentSong) {
+
+                alert(
+                    "Select a song first."
+                );
+
+                return;
+            }
+
+            const message =
+                "🎵 " +
+                currentSong.title +
+                "\n" +
+                "Artist: " +
+                currentSong.artist +
+                "\n\n" +
+                currentSong.link;
+
+            window.open(
+                "https://wa.me/?text=" +
+                encodeURIComponent(message),
+                "_blank"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+document
+    .getElementById("shareBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            if (!currentSong) {
+
+                alert(
+                    "Select a song first."
+                );
+
+                return;
+            }
+
+            const data = {
+
+                title:
+                    currentSong.title,
+
+                text:
+                    "🎵 " +
+                    currentSong.title +
+                    " by " +
+                    currentSong.artist,
+
+                url:
+                    currentSong.link ||
+                    window.location.href
+
+            };
+
+            try {
+
+                if (
+                    navigator.share
+                ) {
+
+                    await navigator.share(
+                        data
+                    );
+
+                }
+
+                else {
+
+                    await navigator.clipboard.writeText(
+                        data.text +
+                        "\n" +
+                        data.url
+                    );
+
+                    alert(
+                        "Song link copied!"
+                    );
+
+                }
+
+            }
+
+            catch(error) {
+
+                console.log(
+                    "Share cancelled"
+                );
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   COPY LINK
+===================================================== */
+
+document
+    .getElementById("copyBtn")
+    .addEventListener(
+        "click",
+        async () => {
+
+            if (!currentSong) {
+
+                alert(
+                    "Select a song first."
+                );
+
+                return;
+            }
+
+            const link =
+                currentSong.link ||
+                window.location.href;
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    link
+                );
+
+                const button =
+                    document.getElementById(
+                        "copyBtn"
+                    );
+
+                button.textContent =
+                    "✓ Copied!";
+
+                setTimeout(
+                    () => {
+
+                        button.textContent =
+                            "🔗 Copy Link";
+
+                    },
+                    1500
+                );
+
+            }
+
+            catch(error) {
+
+                prompt(
+                    "Copy this link:",
+                    link
+                );
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   SEARCH FORM
+===================================================== */
+
+searchForm.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        const query =
+            searchInput.value.trim();
+
+        if (query) {
+
+            searchSongs(
+                query
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   DEFAULT SEARCH
+===================================================== */
+
+searchSongs(
+    "Arijit Singh"
+);
+
+</script>
+
+</body>
+</html>
